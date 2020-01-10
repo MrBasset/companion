@@ -34,11 +34,14 @@ build_script:
 
 test: off
 
+# deploy section to github releases
 deploy:
-  - provider: FTP
-    host: 80.241.92.222
-    protocol: ftp
-    username: companion
-    password:
-      secure: ONk7QHFaaI9JaZ+frqLkRZ+oYjdTgrwTVm21ZX3K0lg=
-    folder: deploy
+  - provider: GitHub
+    artifact: electron-output/*.exe
+    draft: false
+    prerelease: false
+    description: "Release {APPVEYOR_REPO_TAG_NAME}"
+    on:
+      branch:
+        - 1.4.0-backport
+      appveyor_repo_tag: true
